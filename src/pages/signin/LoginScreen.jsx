@@ -3,8 +3,8 @@ import { useAuth } from "../../context/auth";
 import { useState } from "react";
 import { api } from "../../services/api";
 import { Button, Container, ContainerLogin, Footer, Form, Top } from "./styles";
-// import Loader from "../../shared/loading/Loader";
-// import Header from "../../shared/header/Header";
+import Loader from "../../shared/loading/Loader";
+import Header from "../../shared/header/Header";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
@@ -50,8 +50,8 @@ export default function LoginScreen() {
   }
   return (
     <Container>
-      {loading ? ` <Loader />` : <></>}
-      {/* <Header /> */}
+      {loading ? <Loader /> : <></>}
+      <Header />
       <ContainerLogin>
         <Top>ENTRAR</Top>
         <Form>
