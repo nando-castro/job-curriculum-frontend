@@ -7,10 +7,11 @@ import {
   ContainerRegister,
   Footer,
   Form,
+  Line,
   Top,
 } from "./styles";
-// import Loader from "../../shared/loading/Loader";
-// import Header from "../../shared/header/Header";
+import Header from "../../shared/header/Header";
+import Loader from "../../shared/loading/Loader";
 // import Swal from "sweetalert2";
 
 export default function RegisterScreen() {
@@ -56,8 +57,8 @@ export default function RegisterScreen() {
 
   return (
     <Container>
-      {loading ? `<Loader /> ` : <></>}
-      {/* <Header /> */}
+      {loading ? <Loader /> : <></>}
+      <Header />
       <ContainerRegister>
         <Top>Cadastro</Top>
         <Form>
@@ -84,9 +85,10 @@ export default function RegisterScreen() {
           />
         </Form>
         <Footer>
-          <Link to="/">Já possuo cadastro</Link>
+          <Link to="/">Possui Cadastro? Clique aqui!</Link>
           <Button onClick={register}>CADASTRAR</Button>
         </Footer>
+        <Line />
       </ContainerRegister>
     </Container>
   );

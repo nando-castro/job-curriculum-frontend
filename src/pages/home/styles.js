@@ -61,6 +61,8 @@ export const Text = styled.p`
   text-align: center;
 
   color: #000000;
+
+  cursor: default;
 `;
 
 export const Footer = styled.div`

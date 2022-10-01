@@ -2,7 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { useState } from "react";
 import { api } from "../../services/api";
-import { Button, Container, ContainerLogin, Footer, Form, Top } from "./styles";
+import {
+  Button,
+  Container,
+  ContainerLogin,
+  Footer,
+  Form,
+  Line,
+  Top,
+} from "./styles";
 import Loader from "../../shared/loading/Loader";
 import Header from "../../shared/header/Header";
 
@@ -71,11 +79,12 @@ export default function LoginScreen() {
           />
         </Form>
         <Footer>
-          <Link to="/signup">Possui Cadastro? Clique aqui!</Link>
+          <Link to="/signup">Não possui cadastro? Clique aqui!</Link>
           <Button className="button-login" onClick={login}>
             ENTRAR
           </Button>
         </Footer>
+        <Line />
       </ContainerLogin>
     </Container>
   );
