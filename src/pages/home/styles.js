@@ -78,3 +78,50 @@ export const Footer = styled.div`
 
   background: #737373;
 `;
+
+export const OptionsContent = styled.div`
+  width: 436px;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: #fafafa;
+  border-right: 1px solid #000000;
+
+  div {
+    width: 100%;
+    height: 148px;
+  }
+
+  cursor: pointer;
+`;
+
+export const ItemContent = styled.div`
+  width: 100%;
+  height: 155px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid #000000;
+
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 38px;
+
+  text-align: center;
+
+  color: #000000;
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 50%;
+  }
+`;

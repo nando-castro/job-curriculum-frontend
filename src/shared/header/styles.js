@@ -41,6 +41,7 @@ export const Content = styled.div`
   height: 32px;
 
   margin-right: 20px;
+  margin-left: 20px;
 
   display: flex;
   justify-content: space-between;

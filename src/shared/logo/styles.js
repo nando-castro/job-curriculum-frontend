@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  min-width: 400px;
+  min-width: 350px;
   height: 43px;
 
   display: flex;
@@ -19,6 +19,9 @@ export const Container = styled.div`
   cursor: pointer;
 
   @media (max-width: 875px) {
+    width: 100%;
+  }
+  @media (max-width: 460px) {
     width: 100%;
   }
 `;

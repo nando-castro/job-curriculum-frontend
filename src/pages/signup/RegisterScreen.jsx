@@ -85,7 +85,7 @@ export default function RegisterScreen() {
           />
         </Form>
         <Footer>
-          <Link to="/">Possui Cadastro? Clique aqui!</Link>
+          <Link to="/signin">Possui Cadastro? Clique aqui!</Link>
           <Button onClick={register}>CADASTRAR</Button>
         </Footer>
         <Line />

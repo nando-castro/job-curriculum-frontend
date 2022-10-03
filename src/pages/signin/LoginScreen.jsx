@@ -39,7 +39,7 @@ export default function LoginScreen() {
           token: res.data.token,
         };
         localStorage.setItem("userLogged", JSON.stringify(person));
-        navigate("/home");
+        navigate("/");
         setLoading(false);
       })
       .catch((err) => {
