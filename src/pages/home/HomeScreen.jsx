@@ -3,13 +3,16 @@ import { useAuth } from "../../context/auth";
 import Header from "../../shared/header/Header";
 import {
   Button,
+  ButtonResume,
   Container,
   Content,
+  ContentResume,
   Footer,
   ItemContent,
   OptionsContent,
   Text,
 } from "./styles";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -52,10 +55,13 @@ export default function HomeScreen() {
             </ItemContent>
             <ItemContent onClick={createResume}>CURRICULOS</ItemContent>
             <ItemContent onClick={viewJobs}>VAGAS</ItemContent>
-          </OptionsContent>
-          <Content>
             <Button onClick={exitApp}>SAIR</Button>
-          </Content>
+          </OptionsContent>
+          <ContentResume>
+            <ButtonResume onClick={createResume}>
+              CRIAR CURRICULO <IoIosAddCircleOutline className="icon" />
+            </ButtonResume>
+          </ContentResume>
         </Container>
       ) : (
         <Container>

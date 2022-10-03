@@ -125,3 +125,68 @@ export const ItemContent = styled.div`
     border-radius: 50%;
   }
 `;
+
+export const ButtonLogout = styled.div`
+  width: 100%;
+  height: 155px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #002e88;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+
+  color: #ffffff;
+
+  cursor: pointer;
+`;
+
+export const ContentResume = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ButtonResume = styled.div`
+  width: 250px;
+  height: 359px;
+
+  margin-top: 171px;
+  margin-left: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  background: #ffffff;
+  border: 1px dashed #9b9b9b;
+
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+
+  color: #9b9b9b;
+
+  cursor: pointer;
+
+  .icon {
+    font-size: 40px;
+    margin-top: 10px;
+  }
+`;
