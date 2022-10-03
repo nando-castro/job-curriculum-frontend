@@ -32,8 +32,7 @@ export default function HomeScreen() {
     alert("ver jobs");
   }
   function createResume() {
-    // navigate("/resume");
-    alert("criar resume");
+    navigate("/resume");
   }
   function viewProfile() {
     // navigate("/resume");
