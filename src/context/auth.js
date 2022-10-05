@@ -4,6 +4,7 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
+  const [resume, setResume] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem("userLogged")) {

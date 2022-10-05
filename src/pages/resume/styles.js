@@ -8,20 +8,48 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  flex-direction: column;
+  color: #ffffff;
 
-  background-color: purple;
+  flex-direction: column;
 `;
 export const Content = styled.div`
   width: 100%;
   height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+
+  overflow: auto;
+
+  input {
+    width: 548px;
+    height: 46px;
+
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+
+    color: #000000;
+
+    padding-left: 20px;
+  }
+
   background-color: yellow;
 `;
 export const Header = styled.div`
   width: 100%;
   height: 50px;
 
-  background-color: gray;
+  border-bottom: 1px solid #fafafa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const ContentResume = styled.div`
@@ -50,7 +78,7 @@ export const ResumeTop = styled.div`
 
   background-color: blue;
 `;
-export const ResumeImage = styled.div`
+export const ResumeImage = styled.img`
   width: 150px;
   height: 100%;
 
@@ -59,25 +87,27 @@ export const ResumeImage = styled.div`
 
 export const ContentInfo = styled.div`
   width: 100%;
-  height: 90%;
+  height: 85%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: antiquewhite;
+  background-color: blue;
 `;
 export const ResumeRight = styled.div`
-  width: 100%;
+  width: 40%;
   height: 100%;
-
-  background-color: blueviolet;
 `;
 export const ResumeLeft = styled.div`
-  width: 100%;
+  width: 60%;
   height: 100%;
 
-  background-color: green;
+  padding: 10px;
+
+  border-right: 1px solid #000000;
+
+  background-color: orange;
 `;
 export const ResumeProfile = styled.div`
   width: 100%;
@@ -86,7 +116,7 @@ export const ResumeProfile = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: red;
+  background-color: #005094;
 `;
 
 export const ResumeName = styled.div`
@@ -99,8 +129,6 @@ export const ResumeName = styled.div`
   align-items: center;
 
   font-size: 30px;
-
-  background-color: white;
 `;
 export const ResumeFirstName = styled.h1`
   width: auto;
@@ -113,8 +141,6 @@ export const ResumeFirstName = styled.h1`
   justify-content: center;
 
   font-size: 30px;
-
-  background-color: blue;
 `;
 
 export const ResumeLastName = styled.h1`
@@ -128,8 +154,6 @@ export const ResumeLastName = styled.h1`
   justify-content: center;
 
   font-size: 30px;
-
-  background-color: green;
 `;
 
 export const ResumeOffice = styled.p`
@@ -142,15 +166,11 @@ export const ResumeOffice = styled.p`
   margin-left: 20px;
 
   font-size: 24px;
-
-  background-color: yellow;
 `;
 
 export const ResumeInfos = styled.p`
   width: 60%;
   height: 60px;
-
-  background-color: pink;
 `;
 
 export const ResumeComunication = styled.p`
@@ -164,20 +184,19 @@ export const ResumeComunication = styled.p`
     font-size: 10px;
     margin-right: 5px;
   }
-
-  background-color: blue;
 `;
 
 export const ResumeEmail = styled.p`
   width: auto;
   height: 20px;
 
+  display: flex;
+  align-items: center;
+
   .icon {
-    font-size: 10px;
+    font-size: 15px;
     margin-right: 5px;
   }
-
-  background-color: blue;
 `;
 export const ResumePhone = styled.p`
   width: auto;
@@ -185,7 +204,8 @@ export const ResumePhone = styled.p`
 
   margin-left: 20px;
 
-  background-color: cyan;
+  display: flex;
+  align-items: center;
 `;
 export const ResumeAddress = styled.div`
   width: auto;
@@ -201,16 +221,128 @@ export const ResumeAddress = styled.div`
     display: flex;
     justify-content: space-between;
 
-    background-color: antiquewhite;
-
     p {
     }
 
     .icon {
       font-size: 15px;
-      margin-right: -35px;
+      margin-right: -25px;
+    }
+  }
+`;
+
+export const ContainerPersonalData = styled.div`
+  width: 580px;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  margin-top: 20px;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 20px;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+
+  color: #000000;
+
+  p {
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: default;
+
+    .icon {
+      font-size: 30px;
+      cursor: pointer;
     }
   }
 
-  background-color: greenyellow;
+  input {
+    margin-bottom: 30px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date {
+    width: 30%;
+  }
+`;
+
+export const ButtonSave = styled.div`
+  width: 100px;
+  height: 50px;
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: #000000;
+`;
+
+export const FormationContainer = styled.div`
+  width: 100%;
+  height: auto;
+
+  padding: 10px;
+
+  border-bottom: 1px solid #d9d9d9;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  p {
+    width: 100%;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  background-color: green;
+`;
+
+export const ButtonSaveFormation = styled.div`
+  width: 100px;
+  height: 50px;
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: #000000;
 `;
