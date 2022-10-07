@@ -32,17 +32,21 @@ import {
   IoIosRemoveCircleOutline,
 } from "react-icons/io";
 import { useState } from "react";
+import { api } from "../../services/api";
+import { useAuth } from "../../context/auth";
 
 export default function ResumeScreen() {
+  const { user } = useAuth();
+  const { idResume, setIdResume } = useAuth();
+
   const [resume, setResume] = useState({
     title: "",
     firstName: "",
     lastName: "",
-    picture:
-      "http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png",
+    picture: "",
     office: "",
     email: "",
-    phone: "",
+    numberPhone: "",
     address: "",
     postalCode: "",
     city: "",
@@ -50,12 +54,13 @@ export default function ResumeScreen() {
   const [formationData, setFormationData] = useState({
     formation: "",
     institution: "",
-    cityFormation: "",
+    city: "",
     monthStart: "",
     yearStart: "",
     monthEnd: "",
     yearEnd: "",
     description: "",
+    personalDataId: null,
   });
   const [experienceData, setExperienceData] = useState({
     ocuppation: "",
@@ -95,11 +100,63 @@ export default function ResumeScreen() {
   }
   function changeInput(e) {
     setResume({ ...resume, [e.target.name]: e.target.value });
-    setFormationData({ ...formationData, [e.target.name]: e.target.value });
     setExperienceData({ ...experienceData, [e.target.name]: e.target.value });
+
     setSkillData({ ...skillData, [e.target.name]: e.target.value });
     setLanguageData({ ...languageData, [e.target.name]: e.target.value });
   }
+
+  function changeInputFormation(e) {
+    setFormationData({ ...formationData, [e.target.name]: e.target.value });
+  }
+
+  function savePersonalData(e) {
+    e.preventDefault();
+    api
+      .post(
+        "resume/create",
+        { ...resume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setIdResume(res.data.idResume);
+        setPersonalData(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function updatePersonalData(e) {
+    e.preventDefault();
+    alert("update");
+  }
+
+  function saveFormation(e) {
+    e.preventDefault();
+    api
+      .post(
+        "formation/create",
+        { ...formationData, personalDataId: idResume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setFormation(false);
+      })
+      .catch((err) => {
+        console.log(idResume);
+        console.log(typeof idResume);
+        console.log(err);
+      });
+  }
+
   return (
     <Container>
       <Header></Header>
@@ -139,7 +196,7 @@ export default function ResumeScreen() {
                 type="text"
                 placeholder="Imagem"
                 value={resume.picture}
-                name="userImage"
+                name="picture"
                 onChange={changeInput}
               />
               <input
@@ -159,8 +216,8 @@ export default function ResumeScreen() {
               <input
                 type="text"
                 placeholder="Telefone"
-                value={resume.phone}
-                name="phone"
+                value={resume.numberPhone}
+                name="numberPhone"
                 onChange={changeInput}
               />
               <input
@@ -184,7 +241,11 @@ export default function ResumeScreen() {
                 name="city"
                 onChange={changeInput}
               />
-              <ButtonSave>Salvar</ButtonSave>
+              {idResume ? (
+                <ButtonSave onClick={updatePersonalData}>Atualizar</ButtonSave>
+              ) : (
+                <ButtonSave onClick={savePersonalData}>Salvar</ButtonSave>
+              )}
             </ContainerPersonalData>
           ) : (
             <ContainerPersonalData>
@@ -211,21 +272,21 @@ export default function ResumeScreen() {
                 placeholder="Formação"
                 value={formationData.formation}
                 name="formation"
-                onChange={changeInput}
+                onChange={changeInputFormation}
               />
               <input
                 type="text"
                 placeholder="Instituição"
                 value={formationData.institution}
                 name="institution"
-                onChange={changeInput}
+                onChange={changeInputFormation}
               />
               <input
                 type="text"
                 placeholder="Cidade"
-                value={formationData.cityFormation}
-                name="cityFormation"
-                onChange={changeInput}
+                value={formationData.city}
+                name="city"
+                onChange={changeInputFormation}
               />
               <div>
                 <span>
@@ -236,7 +297,7 @@ export default function ResumeScreen() {
                     placeholder="Mês"
                     value={formationData.monthStart}
                     name="monthStart"
-                    onChange={changeInput}
+                    onChange={changeInputFormation}
                   />
                   <input
                     className="date"
@@ -244,7 +305,7 @@ export default function ResumeScreen() {
                     placeholder="Ano"
                     value={formationData.yearStart}
                     name="yearStart"
-                    onChange={changeInput}
+                    onChange={changeInputFormation}
                   />
                 </span>
 
@@ -256,7 +317,7 @@ export default function ResumeScreen() {
                     placeholder="Mês"
                     value={formationData.monthEnd}
                     name="monthEnd"
-                    onChange={changeInput}
+                    onChange={changeInputFormation}
                   />
                   <input
                     className="date"
@@ -264,7 +325,7 @@ export default function ResumeScreen() {
                     placeholder="Ano"
                     value={formationData.yearEnd}
                     name="yearEnd"
-                    onChange={changeInput}
+                    onChange={changeInputFormation}
                   />
                 </span>
               </div>
@@ -273,9 +334,11 @@ export default function ResumeScreen() {
                 placeholder="Descrição"
                 value={formationData.description}
                 name="description"
-                onChange={changeInput}
+                onChange={changeInputFormation}
               />
-              <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+              <ButtonSaveFormation onClick={saveFormation}>
+                Adicionar
+              </ButtonSaveFormation>
             </ContainerPersonalData>
           ) : (
             <ContainerPersonalData>
@@ -456,7 +519,7 @@ export default function ResumeScreen() {
                     </ResumeEmail>
                     <ResumePhone>
                       <FaPhoneAlt className="icon" />
-                      {resume.phone}
+                      {resume.numberPhone}
                     </ResumePhone>
                   </ResumeComunication>
                   <div>
@@ -477,18 +540,18 @@ export default function ResumeScreen() {
                   <div>
                     <div>
                       <p className="formation">{formationData.formation}</p>
-                      <p className="institution">{formationData.institution}</p>
-                      <p className="city-formation">
-                        {formationData.cityFormation}
-                      </p>
-                      <p className="description">{formationData.description}</p>
+                      <main>
+                        <p className="institution">
+                          {formationData.institution}
+                        </p>
+                        <p className="city-formation">{formationData.city}</p>
+                      </main>
                     </div>
                     <p className="date">
-                      {formationData.monthStart}
-                      {formationData.yearStart}
-                      {formationData.monthEnd}
-                      {formationData.yearEnd}
+                      {formationData.monthStart}/{formationData.yearStart} -{" "}
+                      {formationData.monthEnd}/{formationData.yearEnd}
                     </p>
+                    <p className="description">{formationData.description}</p>
                   </div>
                 </FormationContainer>
               ) : null}
@@ -534,3 +597,350 @@ export default function ResumeScreen() {
     </Container>
   );
 }
+
+// <Content>
+//           {personalData ? (
+//             <ContainerPersonalData id="select">
+//               <p>
+//                 Dados Pessoais{" "}
+//                 <IoIosRemoveCircleOutline
+//                   onClick={showOrHidePersonalData}
+//                   className="icon"
+//                 />
+//               </p>
+//               <input
+//                 type="text"
+//                 placeholder="Título"
+//                 value={resume.title}
+//                 name="title"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Primeiro Nome"
+//                 value={resume.firstName}
+//                 name="firstName"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Sobrenome"
+//                 value={resume.lastName}
+//                 name="lastName"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Imagem"
+//                 value={resume.picture}
+//                 name="picture"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Cargo"
+//                 value={resume.office}
+//                 name="office"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Email"
+//                 value={resume.email}
+//                 name="email"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Telefone"
+//                 value={resume.numberPhone}
+//                 name="numberPhone"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Endereço"
+//                 value={resume.address}
+//                 name="address"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="CEP/Código Postal"
+//                 value={resume.postalCode}
+//                 name="postalCode"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Cidade"
+//                 value={resume.city}
+//                 name="city"
+//                 onChange={changeInput}
+//               />
+//               {idResume ? (
+//                 <ButtonSave onClick={updatePersonalData}>Atualizar</ButtonSave>
+//               ) : (
+//                 <ButtonSave onClick={savePersonalData}>Salvar</ButtonSave>
+//               )}
+//             </ContainerPersonalData>
+//           ) : (
+//             <ContainerPersonalData>
+//               <p>
+//                 Dados Pessoais{" "}
+//                 <IoIosAddCircleOutline
+//                   onClick={showOrHidePersonalData}
+//                   className="icon"
+//                 />
+//               </p>
+//             </ContainerPersonalData>
+//           )}
+//           {formation ? (
+//             <ContainerPersonalData>
+//               <p>
+//                 Formação
+//                 <IoIosRemoveCircleOutline
+//                   onClick={showOrHideFormation}
+//                   className="icon"
+//                 />
+//               </p>
+//               <input
+//                 type="text"
+//                 placeholder="Formação"
+//                 value={formationData.formation}
+//                 name="formation"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Instituição"
+//                 value={formationData.institution}
+//                 name="institution"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Cidade"
+//                 value={formationData.cityFormation}
+//                 name="cityFormation"
+//                 onChange={changeInput}
+//               />
+//               <div>
+//                 <span>
+//                   <p>Data de início</p>
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Mês"
+//                     value={formationData.monthStart}
+//                     name="monthStart"
+//                     onChange={changeInput}
+//                   />
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Ano"
+//                     value={formationData.yearStart}
+//                     name="yearStart"
+//                     onChange={changeInput}
+//                   />
+//                 </span>
+
+//                 <span>
+//                   <p>Data de término</p>
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Mês"
+//                     value={formationData.monthEnd}
+//                     name="monthEnd"
+//                     onChange={changeInput}
+//                   />
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Ano"
+//                     value={formationData.yearEnd}
+//                     name="yearEnd"
+//                     onChange={changeInput}
+//                   />
+//                 </span>
+//               </div>
+//               <input
+//                 type="text"
+//                 placeholder="Descrição"
+//                 value={formationData.description}
+//                 name="description"
+//                 onChange={changeInput}
+//               />
+//               <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+//             </ContainerPersonalData>
+//           ) : (
+//             <ContainerPersonalData>
+//               <p>
+//                 Formação
+//                 {idResume ? (
+//                   <IoIosAddCircleOutline
+//                     onClick={showOrHideFormation}
+//                     className="icon"
+//                   />
+//                 ) : null}
+//               </p>
+//             </ContainerPersonalData>
+//           )}
+//           {experience ? (
+//             <ContainerPersonalData>
+//               <p>
+//                 Experiência
+//                 <IoIosRemoveCircleOutline
+//                   onClick={showOrHideExperience}
+//                   className="icon"
+//                 />
+//               </p>
+//               <input
+//                 type="text"
+//                 placeholder="Ocupação"
+//                 value={experienceData.ocuppation}
+//                 name="occupation"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Empresa"
+//                 value={experienceData.company}
+//                 name="company"
+//                 onChange={changeInput}
+//               />
+//               <input
+//                 type="text"
+//                 placeholder="Cidade"
+//                 value={experienceData.city}
+//                 name="cityExperience"
+//                 onChange={changeInput}
+//               />
+//               <div>
+//                 <span>
+//                   <p>Data de início</p>
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Mês"
+//                     value={experienceData.monthStart}
+//                     name="monthStartExperience"
+//                     onChange={changeInput}
+//                   />
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Ano"
+//                     value={experienceData.yearStart}
+//                     name="yearStartExperience"
+//                     onChange={changeInput}
+//                   />
+//                 </span>
+
+//                 <span>
+//                   <p>Data de término</p>
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Mês"
+//                     value={experienceData.monthEnd}
+//                     name="monthEndExperience"
+//                     onChange={changeInput}
+//                   />
+//                   <input
+//                     className="date"
+//                     type="text"
+//                     placeholder="Ano"
+//                     value={experienceData.yearEnd}
+//                     name="yearEndExperience"
+//                     onChange={changeInput}
+//                   />
+//                 </span>
+//               </div>
+//               <input
+//                 type="text"
+//                 placeholder="Descrição"
+//                 value={experienceData.description}
+//                 name="descriptionExperience"
+//                 onChange={changeInput}
+//               />
+//               <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+//             </ContainerPersonalData>
+//           ) : (
+//             <ContainerPersonalData>
+//               <p>
+//                 Experiência
+//                 {idResume ? (
+//                   <IoIosAddCircleOutline
+//                     onClick={showOrHideExperience}
+//                     className="icon"
+//                   />
+//                 ) : null}
+//               </p>
+//             </ContainerPersonalData>
+//           )}
+//           {skill ? (
+//             <ContainerPersonalData>
+//               <p>
+//                 Habilidade
+//                 <IoIosRemoveCircleOutline
+//                   onClick={showOrHideSkill}
+//                   className="icon"
+//                 />
+//               </p>
+//               <input
+//                 type="text"
+//                 placeholder="Habilidade"
+//                 value={skillData.skill}
+//                 name="skill"
+//                 onChange={changeInput}
+//               />
+//               <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+//             </ContainerPersonalData>
+//           ) : (
+//             <ContainerPersonalData>
+//               <p>
+//                 Habilidade
+//                 {idResume ? (
+//                   <IoIosAddCircleOutline
+//                     onClick={showOrHideSkill}
+//                     className="icon"
+//                   />
+//                 ) : null}
+//               </p>
+//             </ContainerPersonalData>
+//           )}
+//           {language ? (
+//             <ContainerPersonalData>
+//               <p>
+//                 Idioma
+//                 <IoIosRemoveCircleOutline
+//                   onClick={showOrHideLanguage}
+//                   className="icon"
+//                 />
+//               </p>
+//               <input
+//                 type="text"
+//                 placeholder="Idioma"
+//                 value={languageData.language}
+//                 name="language"
+//                 onChange={changeInput}
+//               />
+//               <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+//             </ContainerPersonalData>
+//           ) : (
+//             <ContainerPersonalData>
+//               <p>
+//                 Idioma
+//                 {idResume ? (
+//                   <IoIosAddCircleOutline
+//                     onClick={showOrHideLanguage}
+//                     className="icon"
+//                   />
+//                 ) : null}
+//               </p>
+//             </ContainerPersonalData>
+//           )}
+//         </Content>

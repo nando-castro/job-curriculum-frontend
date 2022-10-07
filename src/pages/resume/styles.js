@@ -311,6 +311,8 @@ export const FormationContainer = styled.div`
 
   border-bottom: 1px solid #d9d9d9;
 
+  font-family: "Raleway";
+
   div {
     display: flex;
     flex-direction: column;
@@ -326,10 +328,70 @@ export const FormationContainer = styled.div`
     justify-content: center;
   }
 
+  main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   background-color: green;
 `;
 
 export const ButtonSaveFormation = styled.div`
+  width: 100px;
+  height: 50px;
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: #000000;
+`;
+
+export const ButtonAddExperience = styled.div`
+  width: 100px;
+  height: 50px;
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: #000000;
+`;
+
+export const ButtonAddSkill = styled.div`
+  width: 100px;
+  height: 50px;
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: #000000;
+`;
+
+export const ButtonAddLanguage = styled.div`
   width: 100px;
   height: 50px;
 
