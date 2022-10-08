@@ -63,7 +63,7 @@ export default function ResumeScreen() {
     personalDataId: null,
   });
   const [experienceData, setExperienceData] = useState({
-    ocuppation: "",
+    occupation: "",
     company: "",
     city: "",
     monthStart: "",
@@ -71,12 +71,15 @@ export default function ResumeScreen() {
     monthEnd: "",
     yearEnd: "",
     description: "",
+    personalDataId: null,
   });
   const [skillData, setSkillData] = useState({
     skill: "",
+    personalDataId: null,
   });
   const [languageData, setLanguageData] = useState({
     language: "",
+    personalDataId: null,
   });
   const [personalData, setPersonalData] = useState(false);
   const [formation, setFormation] = useState(false);
@@ -100,14 +103,19 @@ export default function ResumeScreen() {
   }
   function changeInput(e) {
     setResume({ ...resume, [e.target.name]: e.target.value });
-    setExperienceData({ ...experienceData, [e.target.name]: e.target.value });
-
-    setSkillData({ ...skillData, [e.target.name]: e.target.value });
-    setLanguageData({ ...languageData, [e.target.name]: e.target.value });
   }
 
   function changeInputFormation(e) {
     setFormationData({ ...formationData, [e.target.name]: e.target.value });
+  }
+  function changeInputExperience(e) {
+    setExperienceData({ ...experienceData, [e.target.name]: e.target.value });
+  }
+  function changeInputSkill(e) {
+    setSkillData({ ...skillData, [e.target.name]: e.target.value });
+  }
+  function changeInputLanguage(e) {
+    setLanguageData({ ...languageData, [e.target.name]: e.target.value });
   }
 
   function savePersonalData(e) {
@@ -151,8 +159,64 @@ export default function ResumeScreen() {
         setFormation(false);
       })
       .catch((err) => {
-        console.log(idResume);
-        console.log(typeof idResume);
+        console.log(err);
+      });
+  }
+
+  function saveExperience(e) {
+    e.preventDefault();
+    api
+      .post(
+        "experience/create",
+        { ...experienceData, personalDataId: idResume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setExperience(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function saveSkill(e) {
+    e.preventDefault();
+    api
+      .post(
+        "skill/create",
+        { ...skillData, personalDataId: idResume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setSkill(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function saveLanguage(e) {
+    e.preventDefault();
+    api
+      .post(
+        "language/create",
+        { ...languageData, personalDataId: idResume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setLanguage(false);
+      })
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -363,23 +427,23 @@ export default function ResumeScreen() {
               <input
                 type="text"
                 placeholder="Ocupação"
-                value={experienceData.ocuppation}
+                value={experienceData.occupation}
                 name="occupation"
-                onChange={changeInput}
+                onChange={changeInputExperience}
               />
               <input
                 type="text"
                 placeholder="Empresa"
                 value={experienceData.company}
                 name="company"
-                onChange={changeInput}
+                onChange={changeInputExperience}
               />
               <input
                 type="text"
                 placeholder="Cidade"
                 value={experienceData.city}
-                name="cityExperience"
-                onChange={changeInput}
+                name="city"
+                onChange={changeInputExperience}
               />
               <div>
                 <span>
@@ -389,16 +453,16 @@ export default function ResumeScreen() {
                     type="text"
                     placeholder="Mês"
                     value={experienceData.monthStart}
-                    name="monthStartExperience"
-                    onChange={changeInput}
+                    name="monthStart"
+                    onChange={changeInputExperience}
                   />
                   <input
                     className="date"
                     type="text"
                     placeholder="Ano"
                     value={experienceData.yearStart}
-                    name="yearStartExperience"
-                    onChange={changeInput}
+                    name="yearStart"
+                    onChange={changeInputExperience}
                   />
                 </span>
 
@@ -409,16 +473,16 @@ export default function ResumeScreen() {
                     type="text"
                     placeholder="Mês"
                     value={experienceData.monthEnd}
-                    name="monthEndExperience"
-                    onChange={changeInput}
+                    name="monthEnd"
+                    onChange={changeInputExperience}
                   />
                   <input
                     className="date"
                     type="text"
                     placeholder="Ano"
                     value={experienceData.yearEnd}
-                    name="yearEndExperience"
-                    onChange={changeInput}
+                    name="yearEnd"
+                    onChange={changeInputExperience}
                   />
                 </span>
               </div>
@@ -426,10 +490,12 @@ export default function ResumeScreen() {
                 type="text"
                 placeholder="Descrição"
                 value={experienceData.description}
-                name="descriptionExperience"
-                onChange={changeInput}
+                name="description"
+                onChange={changeInputExperience}
               />
-              <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+              <ButtonSaveFormation onClick={saveExperience}>
+                Adicionar
+              </ButtonSaveFormation>
             </ContainerPersonalData>
           ) : (
             <ContainerPersonalData>
@@ -456,9 +522,11 @@ export default function ResumeScreen() {
                 placeholder="Habilidade"
                 value={skillData.skill}
                 name="skill"
-                onChange={changeInput}
+                onChange={changeInputSkill}
               />
-              <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+              <ButtonSaveFormation onClick={saveSkill}>
+                Adicionar
+              </ButtonSaveFormation>
             </ContainerPersonalData>
           ) : (
             <ContainerPersonalData>
@@ -485,9 +553,11 @@ export default function ResumeScreen() {
                 placeholder="Idioma"
                 value={languageData.language}
                 name="language"
-                onChange={changeInput}
+                onChange={changeInputLanguage}
               />
-              <ButtonSaveFormation>Adicionar</ButtonSaveFormation>
+              <ButtonSaveFormation onClick={saveLanguage}>
+                Adicionar
+              </ButtonSaveFormation>
             </ContainerPersonalData>
           ) : (
             <ContainerPersonalData>
