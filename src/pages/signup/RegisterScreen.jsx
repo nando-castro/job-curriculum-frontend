@@ -30,7 +30,7 @@ export default function RegisterScreen() {
     api
       .post("/signup", { ...userRegister })
       .then(() => {
-        navigate("/");
+        navigate("/signin");
         setLoading(false);
       })
       .catch((err) => {

@@ -1,5 +1,4 @@
-import { BarBottom, Container, Content, TextContent, Top } from "./styles";
-import { IoExit } from "react-icons/io5";
+import { Container, Content, TextContent, Top } from "./styles";
 import Logo from "../logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
@@ -7,10 +6,13 @@ import { useAuth } from "../../context/auth";
 export default function Header() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  function exitApp() {
-    navigate("/");
-    localStorage.clear();
-    window.location.reload();
+
+  function viewJobs() {
+    alert("Ver Vagas");
+  }
+
+  function viewSignin() {
+    navigate("/signin");
   }
   return (
     <>
@@ -26,7 +28,7 @@ export default function Header() {
             <Logo />
             <Content>
               <TextContent>Criar Curriculo</TextContent>
-              <TextContent>Vagas</TextContent>
+              <TextContent onClick={viewJobs}>Vagas</TextContent>
               <TextContent>Fazer Login</TextContent>
             </Content>
           </Top>

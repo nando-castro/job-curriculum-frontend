@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  color: #ffffff;
+  color: #000000;
 
   flex-direction: column;
 `;
@@ -41,12 +41,12 @@ export const Content = styled.div`
 
     padding-left: 20px;
   }
-
-  background-color: yellow;
 `;
 export const Header = styled.div`
   width: 100%;
   height: 50px;
+
+  margin-bottom: 50px;
 
   border-bottom: 1px solid #fafafa;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -59,14 +59,12 @@ export const ContentResume = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: crimson;
 `;
 export const ViewResume = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: cyan;
+  border-left: 1px solid #000000;
 `;
 export const ResumeTop = styled.div`
   width: 100%;
@@ -76,13 +74,11 @@ export const ResumeTop = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: blue;
+  color: #ffffff;
 `;
 export const ResumeImage = styled.img`
   width: 150px;
   height: 100%;
-
-  background-color: white;
 `;
 
 export const ContentInfo = styled.div`
@@ -92,8 +88,6 @@ export const ContentInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: blue;
 `;
 export const ResumeRight = styled.div`
   width: 40%;
@@ -106,8 +100,6 @@ export const ResumeLeft = styled.div`
   padding: 10px;
 
   border-right: 1px solid #000000;
-
-  background-color: orange;
 `;
 export const ResumeProfile = styled.div`
   width: 100%;
@@ -169,7 +161,7 @@ export const ResumeOffice = styled.p`
 `;
 
 export const ResumeInfos = styled.p`
-  width: 60%;
+  width: 90%;
   height: 60px;
 `;
 
@@ -226,7 +218,7 @@ export const ResumeAddress = styled.div`
 
     .icon {
       font-size: 15px;
-      margin-right: -25px;
+      margin-right: 5px;
     }
   }
 `;
@@ -308,10 +300,15 @@ export const FormationContainer = styled.div`
   height: auto;
 
   padding: 10px;
+  margin-bottom: 10px;
 
   border-bottom: 1px solid #d9d9d9;
 
   font-family: "Raleway";
+
+  h2 {
+    font-weight: bold;
+  }
 
   div {
     display: flex;
@@ -333,8 +330,6 @@ export const FormationContainer = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-
-  background-color: green;
 `;
 
 export const ButtonSaveFormation = styled.div`
@@ -407,4 +402,88 @@ export const ButtonAddLanguage = styled.div`
   cursor: pointer;
 
   color: #000000;
+`;
+
+export const Item = styled.div`
+  width: 100%;
+
+  padding-top: 10px;
+`;
+
+export const SkillContainer = styled.div`
+  width: 100%;
+
+  padding: 10px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #d9d9d9;
+
+  font-family: "Raleway";
+
+  h2 {
+    font-weight: bold;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+  }
+
+  p {
+    width: 90%;
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+`;
+
+export const LanguageContainer = styled.div`
+  width: 100%;
+
+  padding: 10px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #d9d9d9;
+
+  font-family: "Raleway";
+
+  h2 {
+    font-weight: bold;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+  }
+
+  li {
+    width: 100%;
+  }
+`;
+
+export const ButtonBack = styled.div`
+  width: 100px;
+  height: 40px;
+
+  position: fixed;
+  top: 5px;
+  left: 5px;
+
+  z-index: 2;
+
+  border-radius: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  background-color: #005094;
 `;

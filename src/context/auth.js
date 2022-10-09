@@ -4,8 +4,13 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [resume, setResume] = useState({});
+  const [resumes, setResumes] = useState([]);
   const [idResume, setIdResume] = useState(null);
+  const [experienceItems, setExperienceItems] = useState([]);
+  const [formationItems, setFormationItems] = useState([]);
+  const [skillItems, setSkillItems] = useState([]);
+  const [languageItems, setLanguageItems] = useState([]);
+  const [resumeItems, setResumeItems] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("userLogged")) {
@@ -15,7 +20,26 @@ export const AuthProvider = (props) => {
     }
   }, []);
   return (
-    <AuthContext.Provider value={{ user, setUser, idResume, setIdResume }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        idResume,
+        setIdResume,
+        resumes,
+        setResumes,
+        experienceItems,
+        setExperienceItems,
+        formationItems,
+        setFormationItems,
+        skillItems,
+        setSkillItems,
+        languageItems,
+        setLanguageItems,
+        resumeItems,
+        setResumeItems,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
