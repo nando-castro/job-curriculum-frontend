@@ -173,11 +173,6 @@ export default function ResumeScreen() {
         console.log(err);
       });
   }
-  function updatePersonalData(e) {
-    e.preventDefault();
-    alert("update");
-  }
-
   function saveFormation(e) {
     e.preventDefault();
     api
@@ -197,7 +192,6 @@ export default function ResumeScreen() {
         console.log(err);
       });
   }
-
   function saveExperience(e) {
     e.preventDefault();
     api
@@ -250,6 +244,26 @@ export default function ResumeScreen() {
       )
       .then((res) => {
         setLanguage(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function updatePersonalData(e) {
+    e.preventDefault();
+    api
+      .put(
+        `resume/update/${idResume}`,
+        { ...resume },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setPersonalData(false);
       })
       .catch((err) => {
         console.log(err);
@@ -374,7 +388,6 @@ export default function ResumeScreen() {
       ));
     }
   }
-
   function renderFormations() {
     if (user) {
       return formationItems.map((i, index) => (
