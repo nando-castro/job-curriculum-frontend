@@ -38,7 +38,7 @@ import {
 } from "react-icons/io";
 
 import { BsSquareFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
@@ -61,8 +61,6 @@ export default function ResumeScreen() {
     resumeItems,
     setResumeItems,
   } = useAuth();
-
-  // const [experienceItems, setExperienceItems] = useState([]);
 
   const [resume, setResume] = useState({
     title: "",
@@ -111,6 +109,7 @@ export default function ResumeScreen() {
   const [experience, setExperience] = useState(false);
   const [skill, setSkill] = useState(false);
   const [language, setLanguage] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   function returnMenu() {
     setIdResume([]);
@@ -168,6 +167,7 @@ export default function ResumeScreen() {
       .then((res) => {
         setIdResume(res.data.idResume);
         setPersonalData(false);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
@@ -187,6 +187,7 @@ export default function ResumeScreen() {
       )
       .then((res) => {
         setFormation(false);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
@@ -206,6 +207,7 @@ export default function ResumeScreen() {
       )
       .then((res) => {
         setExperience(false);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
@@ -225,6 +227,7 @@ export default function ResumeScreen() {
       )
       .then((res) => {
         setSkill(false);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
@@ -244,6 +247,7 @@ export default function ResumeScreen() {
       )
       .then((res) => {
         setLanguage(false);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
@@ -288,7 +292,7 @@ export default function ResumeScreen() {
       }
       getExperiences();
     }
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     if (user) {
@@ -308,7 +312,7 @@ export default function ResumeScreen() {
       }
       getFormations();
     }
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     if (user) {
@@ -328,7 +332,7 @@ export default function ResumeScreen() {
       }
       getSkills();
     }
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     if (user) {
@@ -348,7 +352,7 @@ export default function ResumeScreen() {
       }
       getLanguages();
     }
-  }, []);
+  }, [update]);
   useEffect(() => {
     if (user) {
       function getResume() {
